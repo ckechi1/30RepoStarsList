@@ -7,9 +7,13 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.acl.Owner;
 
 public class MainActivity extends AppCompatActivity {
     TextView textView;
@@ -28,17 +32,25 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
 
                 try {
-                    JSONArray jsonArray = response.getJSONArray("items");
+                    JSONArray jsonArray = response.getJSONArray("items"); // inside items
 
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject employee = jsonArray.getJSONObject(i);
 
-                        String name = employee.getString("name");
-                        int id = employee.getInt("id");
-                        String description = employee.getString("description");
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        String name = obj.getString("name");
+                        int id = obj.getInt("id");
+                        String description = obj.getString("description");
 
-                        textView.append(name + ", " + String.valueOf(id) + ", " + description + "\n\n");
-                    }
+
+                        JSONObject owner = (JSONObject) obj.get("owner");  // enter object owner
+                        String login = owner.getString("login");
+                        String photo = owner.getString("avatar_url");
+
+
+                        //  textView.append(name + ", " + String.valueOf(id) + ", " + description + "\n\n");
+                        textView.append(" login "+ login + "photo " + photo );
+
+                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
