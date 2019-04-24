@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textview);
 
         GithubApi.getInstance().initialize(getApplicationContext());
 
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         //  textView.append(name + ", " + String.valueOf(id) + ", " + description + "\n\n");
-                        textView.append(" login "+ login + "photo " + photo );
+                        //textView.append(" login "+ login + "photo " + photo );
 
                      }
 
