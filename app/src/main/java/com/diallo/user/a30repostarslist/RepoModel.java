@@ -8,9 +8,6 @@ public class RepoModel {
     private String ownerPhoto;
 
     public RepoModel() {
-    }
-
-    public RepoModel(String repoName, String repoDescription, int repoStars, String ownerUsername, String ownerPhoto) {
         this.repoName = repoName;
         this.repoDescription = repoDescription;
         this.repoStars = repoStars;
