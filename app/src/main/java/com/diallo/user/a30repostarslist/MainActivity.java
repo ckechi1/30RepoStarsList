@@ -1,14 +1,14 @@
 package com.diallo.user.a30repostarslist;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,9 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ArrayList<RepoModel> mylistRepo  ;
     private RepoModel RepoModel;
-    private RecyclerView.LayoutManager myLayoutManager;
     private RecyclerView myRecyclerveiw;
-    private RcCvAdapter RcCvAdapter;
 
 
     @Override
@@ -34,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         GithubApi.getInstance().initialize(getApplicationContext());
 
         mylistRepo = new ArrayList<>();
-        RcCvAdapter = new RcCvAdapter(this, mylistRepo);
-        myLayoutManager = new  LinearLayoutManager(this);
+        RcCvAdapter rcCvAdapter = new RcCvAdapter(this, mylistRepo);
+        RecyclerView.LayoutManager myLayoutManager = new LinearLayoutManager(this);
         myRecyclerveiw.setLayoutManager(myLayoutManager);
-        myRecyclerveiw.setAdapter(RcCvAdapter);
+        myRecyclerveiw.setHasFixedSize(true);
+        myRecyclerveiw.setAdapter(rcCvAdapter);
 
         GithubApi.getInstance().get30StarsGithubRepositories(new Response.Listener<JSONObject>() {
             @Override
@@ -45,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    Log.d("json ma reponse ", response.toString());
+                   // Log.d("json ma reponse ", response.toString());
 
-                    JSONArray jsonArray = response.getJSONArray("items"); // inside items
+                    JSONArray jsonArray = response.getJSONArray("items"); // inside array items
 
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 30; i++) {
 
                         RepoModel = new RepoModel();
 
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         String ownerName = owner.getString("login");
                         String photo = owner.getString("avatar_url");
 
+
                         RepoModel.setRepoName(name);
                         RepoModel.setRepoDescription(description);
                         RepoModel.setRepoStars(Stars);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         mylistRepo.add(RepoModel);
                      }
 
-                myRecyclerveiw.getAdapter().notifyDataSetChanged();
+               myRecyclerveiw.getAdapter().notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d( "mon erreur: " + error.getMessage());
+             //   VolleyLog.d( "mon erreur: " + error.getMessage());
                 error.printStackTrace();
             }
         });

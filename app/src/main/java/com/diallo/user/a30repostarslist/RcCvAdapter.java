@@ -1,5 +1,6 @@
 package com.diallo.user.a30repostarslist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,8 +33,7 @@ public class RcCvAdapter extends RecyclerView.Adapter<RcCvAdapter.MyViewHolder> 
         holder.repoDescription.setText(mylistRepo.get(i).getRepoDescription());
         holder.repoStars.setText(String.valueOf(mylistRepo.get(i).getRepoStars()));
         holder.ownerUsername.setText(mylistRepo.get(i).getOwnerUsername());
-      //  ImageManager.setImage(myContext , holder.ownerPhoto , mylistRepo.get(i).getOwnerPhoto());
-
+        ImageManager.setImage(myContext , holder.ownerPhoto , mylistRepo.get(i).getOwnerPhoto());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class RcCvAdapter extends RecyclerView.Adapter<RcCvAdapter.MyViewHolder> 
         private TextView ownerUsername;
         private ImageView ownerPhoto;
 
-        public MyViewHolder( View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
             repoName = itemView.findViewById(R.id.repoNametv);

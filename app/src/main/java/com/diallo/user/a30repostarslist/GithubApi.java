@@ -26,7 +26,7 @@ public class GithubApi {
     private static GithubApi mInstance;
     private Context mContext;
     private RequestQueue mRequestQueue;
-    public static final String URL = "https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc";
+    public static final String URL = "https://api.github.com/search/repositories?q=created:>2019-03-22&sort=stars&order=desc";
 
 
     private GithubApi() {
